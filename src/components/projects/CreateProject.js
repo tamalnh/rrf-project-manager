@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createProject } from '../../store/actions/project.action'
 
 class CreateProject extends Component {
     constructor(props) {
         super(props);
         this.state = {
              title: '',
-             content: ''
+             content: '',
+             date: new Date()
           }
     }
 
     handleSubmit (e) {
         e.preventDefault();
+
+        const newProject = {
+            title: this.state.title,
+            content: this.state.content,
+            date: this.state.date
+        }
+
+        this.props.createProject(newProject); //create project
     }
 
     handleInput(e){
@@ -20,7 +31,8 @@ class CreateProject extends Component {
     }
 
     render() {  
-        
+        console.log(this.props)
+        // console.log(this.state)
         return ( 
             <div className="container">
                 <form className="white" onSubmit={e => this.handleSubmit(e)}>
@@ -39,7 +51,7 @@ class CreateProject extends Component {
                          <label htmlFor="text">Description</label>
                          <textarea   
                             id="text" 
-                            name="text"
+                            name="content"
                             col="10"   
                             className="materialize-textarea"
                             value={this.state.content}
@@ -55,5 +67,12 @@ class CreateProject extends Component {
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        projects: state.project.projects
+    }
+}
+
  
-export default CreateProject;
+export default connect(mapStateToProps, {createProject})(CreateProject);

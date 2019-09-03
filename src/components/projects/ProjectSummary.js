@@ -12,4 +12,4 @@ const ProjectSummary = ({project}) => {
      );
 }
  
-export default ProjectSummary; // start with 13
+export default ProjectSummary;
