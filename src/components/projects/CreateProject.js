@@ -18,7 +18,7 @@ class CreateProject extends Component {
         const newProject = {
             title: this.state.title,
             content: this.state.content,
-            date: this.state.date
+            createdAt: this.state.date
         }
 
         this.props.createProject(newProject); //create project
@@ -31,7 +31,7 @@ class CreateProject extends Component {
     }
 
     render() {  
-        console.log(this.props)
+        // console.log(this.props)
         // console.log(this.state)
         return ( 
             <div className="container">

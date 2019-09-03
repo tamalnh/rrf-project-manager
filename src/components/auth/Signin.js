@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import {signInUser} from '../../store/actions/auth.action';
 class Signin extends Component {
     constructor(props) {
         super(props);
@@ -11,6 +12,7 @@ class Signin extends Component {
 
     handleSubmit (e) {
         e.preventDefault();
+        this.props.signInUser(this.state);
     }
 
     handleInput(e){
@@ -19,9 +21,9 @@ class Signin extends Component {
         })
     }
 
-    render() { 
-        console.log(this.state);
-        
+    render() {  
+        // console.log(this.props)
+        const {error} = this.props;
         return ( 
             <div className="container">
                 <form className="white" onSubmit={e => this.handleSubmit(e)}>
@@ -46,6 +48,11 @@ class Signin extends Component {
                             onChange={ e => this.handleInput(e)}
                         />
                     </div>
+                    {error && (
+                        <div className="red-text">
+                            {error.message}
+                        </div>
+                    )}
                     <div className="input-field">
                          <button className="btn pink lighten-1 z-depth-0">login</button>
                     </div>
@@ -54,5 +61,11 @@ class Signin extends Component {
          );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        error: state.error.error
+    }
+}
  
-export default Signin;
+export default connect(mapStateToProps, {signInUser})(Signin);

@@ -12,8 +12,7 @@ const ProjectReducer = ( state=initialState, action ) => {
     switch (action.type) { 
         case CREATE_PROJECT:
             return {
-                ...state,
-                projects: action.payload
+                projects: [...state.projects, action.payload] //18
             }
 
         default:
